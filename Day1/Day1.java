@@ -60,7 +60,7 @@ public class Day1{
                 result = 0;
 
             }
-            else{ result += Integer.parseInt(item); }
+            else { result += Integer.parseInt(item); }
         
         }
         

@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import Day1.Day1;
-// A: Rock, B: Paper, C: Scissors -> X: Rock, Y: Paper, Z: Scissors
+// A: Rock, B: Paper, C: Scissors -> X: Lose, Y: Draw, Z: Win
 // should not win every time -> suspicious
 // lose = 0 points, draw = 3 points, win = 6 points + 
 // Rock = 1 point, Paper = 2 points, Scissors = 3 Points
@@ -16,7 +16,19 @@ public class Day2 {
             "Z", 3
     );
 
+    static Map<String, Integer> points_rules_extended = Map.of(
+            "A X", 3,
+            "A Y", 4,
+            "A Z", 8,
+            "B X", 1,
+            "B Y", 5,
+            "B Z", 9,
+            "C X", 2,
+            "C Y", 6,
+            "C Z", 7
+    );
 
+//this method is for the first part of the challenge
     public static int fight(String signs){
         
         int result = 0;
@@ -50,14 +62,19 @@ public class Day2 {
 
         return result;
     }
-    
+
+//this method is for the second part
+    public static int fight_extended(String signs){
+        
+        return points_rules_extended.get(signs);
+    }
 
     public static void main(String[] args){
         
         int points = 0;
         List <String> inputs = Day1.readFileInList("Inputs/input_day2.txt");
 
-        for(String iterator : inputs){ points += fight(iterator); }
+        for(String iterator : inputs){ points += fight_extended(iterator); }
 
         System.out.println(points);
 

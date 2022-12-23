@@ -27,7 +27,7 @@ public class Day3 {
 
             if(second_compartment_set.contains(character)){ 
                 
-                temporary_priority = getPriority(character, priority);
+                temporary_priority = getPriority(character);
 
                 if(temporary_priority > priority){ priority = temporary_priority; }
             }
@@ -38,7 +38,7 @@ public class Day3 {
     }
 
 
-    public static int getPriority(String input, int priority){
+    public static int getPriority(String input){
 
         int temporary_priority = ((int) (input.charAt(0))) % 64;    
 
@@ -65,15 +65,15 @@ public class Day3 {
 
             for(String character : comparator){
 
-                if(secondBag.contains(character) && thirdBag.contains(character)){ temporary_priority = getPriority(character, priority1); }
+                if(secondBag.contains(character) && thirdBag.contains(character)){ temporary_priority = getPriority(character); }
 
                 if(temporary_priority > priority1){ priority1 = temporary_priority; }
                 
 
             }
 
-            if(temporary_priority < 53){ sum += priority1; }
-
+            sum += priority1; 
+            priority1 = 0;
             temporary_priority = 0;
 
             i += 3;
@@ -89,6 +89,8 @@ public class Day3 {
         List<String> inputs = Day1.readFileInList("/home/aegidiushaslauer/Dailies/AdventOfCode/Inputs/input_day3.txt");
         System.out.println(getPriorityBy3Bags(inputs));
 
+        
+//----these were for day3 part 1----
         //for(String rucksack : inputs){ sum += getPriorityBy2Compartments(rucksack); }
         //System.out.println(sum);   
     }

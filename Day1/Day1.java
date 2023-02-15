@@ -1,5 +1,7 @@
 package Day1;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.nio.file.Files;
@@ -21,6 +23,27 @@ public class Day1{
         return allCalories;
     }
 
+    public static List<String> readFileInListWithRange(String filename, int numLines){
+
+        List<String> lines = new ArrayList<>();
+
+        try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
+
+            String line;
+            int count = 0;
+
+            while ((line = br.readLine()) != null && count < numLines) {
+                lines.add(line);
+                count++;
+            }
+        }
+
+        catch(IOException exception){ System.out.println("Your file does not exist."); }
+
+        return lines;
+
+
+    }
 
     public static List<Integer> getMaxCalories(List<String> calories){
         

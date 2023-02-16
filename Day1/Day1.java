@@ -23,6 +23,8 @@ public class Day1{
         return allCalories;
     }
 
+
+    
     public static List<String> readFileInListWithRange(String filename, int numLines){
 
         List<String> lines = new ArrayList<>();

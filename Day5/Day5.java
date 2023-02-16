@@ -10,25 +10,26 @@ public class Day5 {
 
     public static List<Stack<String>> getReorderedStacks(List<String> inputs){
 
-        List<Stack<String>> stacks = List.of();
+        List<Stack<String>> stacks = new ArrayList<>();
         
 
         for(String item : inputs){
 
             int count = 0;
 
-            for(int i = 0; i < item.length(); i+=4){
+            for(int i = 1; i < item.length(); i+=4){
 
-                if(item.substring(i, i).equals(" ")){ 
+                //this checks if enough stacks are created
+                if(stacks.size() <= (item.length() / 4)){ stacks.add(new Stack<String>()); }
+                
+                if(item.substring(i, i + 1).equals(" ")){ 
 
                     count++;
                     continue; 
                 }                
 
-                if(stacks.get(count) == null){ stacks.add(new Stack<String>()); }
-
-                stacks.get(count).push(item.substring(i, i));
-                count ++;
+                stacks.get(count).push(item.substring(i, i+1));
+                count++;
             }
 
         }
@@ -42,16 +43,11 @@ public class Day5 {
         List<String> stacks = Day1.readFileInListWithRange("/home/aegidiushaslauer/Dailies/AdventOfCode/Inputs/input_day5.txt", 8);
         List<Stack<String>> filledStacks = getReorderedStacks(stacks);
 
-        Stack<String> stack1 = new Stack<String>();
-        stack1.push("test1");
-        stack1.push("test2");
+        for(Stack<String> stack : filledStacks){
 
-        List<Stack<String>> list1 = new ArrayList<>();
-        list1.add(stack1);
+            for(String item: stack){ System.out.print(item); }
 
-        for(Stack<String> stack : list1){
-
-            for(String item: stack){ System.out.println(item); }
+            System.out.println();
         }
 
     }

@@ -25,16 +25,16 @@ public class Day1{
 
 
     
-    public static List<String> readFileInListWithRange(String filename, int numLines){
+    public static List<String> readFileInListWithRange(String filename, int lowerBound, int numLines){
 
         List<String> lines = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
 
             String line;
-            int count = 0;
+            int count = lowerBound;
 
-            while ((line = br.readLine()) != null && count < numLines) {
+            while ((line = br.readLine()) != null && count < numLines && count >= lowerBound) {
                 lines.add(line);
                 count++;
             }

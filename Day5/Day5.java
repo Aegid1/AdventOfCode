@@ -38,20 +38,23 @@ public class Day5 {
 
     }
 
-    public static List<String> getExactCommands (List<String> commands){
+    public static List<Integer> getExactCommands (List<String> commands){
 
-        List<String> copyOfCommands = new ArrayList<>();
-
+        List<Integer> copyOfCommands = new ArrayList<>();
+        List<String> acceptableChars = List.of("0", "1", "2", "3", "4", "5", "6", "7", "8", "9")
+        
         for(String item : commands){
 
-            String command = item;
+            for(int i = 0; i < item.length(); i++){
             
-            command = command.replaceAll("move", " ");
-            command = command.replaceAll("from", " ");
-            command = command.replaceAll("to", " ");
+//                int test = Integer.parseInt(item.substring(i, i + 1));
 
-            copyOfCommands.add(command);
+//                if(acceptableChars.contains(item.substring(i, i + 1)) && item.substring(i + 1, i + 2) != ){ copyOfCommands.add(Integer.parseInt(item); }
 
+            
+
+//                copyOfCommands.add();
+            }
         }
 
         return copyOfCommands;
@@ -59,7 +62,23 @@ public class Day5 {
 
     public static List<Stack<String>> restructureStacks (List<Stack<String>> stacks, List<String> commands){
     
+        for(String command : commands){
+
+            String[] commandParts = command.split(" ");    
+
+            int amount = Integer.parseInt(commandParts[0]);
+            int origin = Integer.parseInt(commandParts[1]);
+            int destination = Integer.parseInt(commandParts[2]);
+
+            for(int i = 0; i < amount; i++){
+
+                stacks.get(destination).push(stacks.get(origin).pop());
+
+            }
+        }
         
+        return stacks;
+    
     }
 
     public static void main (String[] args){
@@ -68,11 +87,14 @@ public class Day5 {
         List<String> commands = Day1.readFileInListWithRange("/home/aegidiushaslauer/Dailies/AdventOfCode/Inputs/input_day5.txt", 11, 514);
         
         List<Stack<String>> filledStacks = getReorderedStacks(stacks);
+        String test1 = " 11";
+        System.out.println(Integer.parseInt(test1));
+//        commands = Day5.getExactCommands(commands);
 
-        commands = Day5.getExactCommands(commands);
- 
-        for(String command : commands){ System.out.println(command); }
+//        for(int i = 0; i < 2 ; i++){ System.out.println(commands.get(i).length()); }
 
+//        filledStacks = Day5.restructureStacks(filledStacks, commands);
+// 
 //        for(Stack<String> stack : filledStacks){
 //
 //            for(String item: stack){ System.out.print(item); }

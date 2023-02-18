@@ -32,11 +32,16 @@ public class Day1{
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
 
             String line;
-            int count = lowerBound;
+            int count = 0;
 
-            while ((line = br.readLine()) != null && count < numLines && count >= lowerBound) {
-                lines.add(line);
+            while ((line = br.readLine()) != null && count < numLines) {
+
                 count++;
+
+                if(count < lowerBound){ continue; }
+
+                lines.add(line);
+                
             }
         }
 

@@ -38,22 +38,37 @@ public class Day5 {
 
     }
 
-    public static List<Integer> getExactCommands (List<String> commands){
+    public static List<String> getExactCommands (List<String> commands){
 
-        List<Integer> copyOfCommands = new ArrayList<>();
-        List<String> acceptableChars = List.of("0", "1", "2", "3", "4", "5", "6", "7", "8", "9")
-        
+        List<String> copyOfCommands = new ArrayList<>();
+        int count = 0;
+
         for(String item : commands){
 
             for(int i = 0; i < item.length(); i++){
+                
+                try{
+                    
+                    if(Integer.parseInt(item.substring(i, i + 1)) >= 0){
+
+                        copyOfCommands.add(item.substring(i, i + 1));
+                        count ++;
+
+                        if((i < item.length() -2) && (Integer.parseInt(item.substring(i + 1 , i + 2)) >= 0)){ 
+
+                            copyOfCommands.remove(count - 1);
+                            copyOfCommands.add(item.substring(i, i + 1) + item.substring(i + 1 , i + 2));
+
+                            i++;
+                        }
+
+
+                    }
+
+                } catch(NumberFormatException exception){ continue; }
+
             
-//                int test = Integer.parseInt(item.substring(i, i + 1));
 
-//                if(acceptableChars.contains(item.substring(i, i + 1)) && item.substring(i + 1, i + 2) != ){ copyOfCommands.add(Integer.parseInt(item); }
-
-            
-
-//                copyOfCommands.add();
             }
         }
 
@@ -62,15 +77,13 @@ public class Day5 {
 
     public static List<Stack<String>> restructureStacks (List<Stack<String>> stacks, List<String> commands){
     
-        for(String command : commands){
+        for(int i = 0; i < commands.size(); i += 3){
+            
+            int amount = Integer.parseInt(commands.get(i));
+            int origin = Integer.parseInt(commands.get(i + 1)) - 1;
+            int destination = Integer.parseInt(commands.get(i + 2)) - 1;
 
-            String[] commandParts = command.split(" ");    
-
-            int amount = Integer.parseInt(commandParts[0]);
-            int origin = Integer.parseInt(commandParts[1]);
-            int destination = Integer.parseInt(commandParts[2]);
-
-            for(int i = 0; i < amount; i++){
+            for(int k = 0; k < amount; k++){
 
                 stacks.get(destination).push(stacks.get(origin).pop());
 
@@ -87,20 +100,19 @@ public class Day5 {
         List<String> commands = Day1.readFileInListWithRange("/home/aegidiushaslauer/Dailies/AdventOfCode/Inputs/input_day5.txt", 11, 514);
         
         List<Stack<String>> filledStacks = getReorderedStacks(stacks);
-        String test1 = " 11";
-        System.out.println(Integer.parseInt(test1));
-//        commands = Day5.getExactCommands(commands);
 
-//        for(int i = 0; i < 2 ; i++){ System.out.println(commands.get(i).length()); }
+        commands = Day5.getExactCommands(commands);
 
-//        filledStacks = Day5.restructureStacks(filledStacks, commands);
-// 
-//        for(Stack<String> stack : filledStacks){
-//
-//            for(String item: stack){ System.out.print(item); }
-//
-//            System.out.println();
-//        }
+        for(int i = 0; i < 2 ; i++){ System.out.println(commands.get(i).length()); }
+
+        filledStacks = Day5.restructureStacks(filledStacks, commands);
+ 
+        for(Stack<String> stack : filledStacks){
+
+            for(String item: stack){ System.out.print(item); }
+
+            System.out.println();
+        }
     }
     
 }

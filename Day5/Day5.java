@@ -83,11 +83,26 @@ public class Day5 {
             int origin = Integer.parseInt(commands.get(i + 1)) - 1;
             int destination = Integer.parseInt(commands.get(i + 2)) - 1;
 
-            for(int k = 0; k < amount; k++){
+            if(amount <= 1){ stacks.get(destination).push(stacks.get(origin).pop()); }
 
-                stacks.get(destination).push(stacks.get(origin).pop());
+            else{
 
+                List<String> placeholder = new ArrayList<>();
+
+                for(int j = 0; j < amount; j++){
+                
+                    placeholder.add(stacks.get(origin).pop());
+
+                }
+
+                for(int k = 1; k <= amount; k++){
+
+                    stacks.get(destination).push(placeholder.get(placeholder.size() - k));
+
+                }
             }
+
+            
         }
         
         return stacks;

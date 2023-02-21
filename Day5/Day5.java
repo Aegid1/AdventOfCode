@@ -62,7 +62,6 @@ public class Day5 {
                             i++;
                         }
 
-
                     }
 
                 } catch(NumberFormatException exception){ continue; }

@@ -1,8 +1,11 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.sound.sampled.Line;
 import javax.swing.tree.TreeNode;
+import javax.xml.crypto.dsig.keyinfo.KeyValue;
 
 import Day1.Day1;
 
@@ -67,12 +70,39 @@ public class Day7 {
                     currentNode.addFile(fileName, fileSize);
                 }
 
-            }catch(NumberFormatException exception){ continue;}
+            }catch(NumberFormatException exception){ continue; }
         }
 
         return rootNode;
     }
 
+
+
+    public static int dfsFilesInDirectories(Node<String> tree){
+
+        List<Node<String>> frontiers = List.of();
+        List<Node<String>> explored = List.of();
+        Node<String> currentNode;
+        Map<String, Integer> result = new HashMap<>();
+
+        frontiers.add(tree);
+
+        while(!frontiers.isEmpty()){
+            
+            //this part is for calculating the total size of the files for the directory
+            Map<String, Integer> files = frontiers.get(0).getFiles();
+            int fileTotal = 0;
+
+            for(Map.Entry<String, Integer> file : files.entrySet()){ fileTotal += file.getValue(); }
+            result.put(frontiers.get(0).getName(), fileTotal);
+
+            //this part is the actual DFS-Algorithm 
+            
+
+        }
+
+        return 0;
+    }
 
     public static void main(String[] args){
 

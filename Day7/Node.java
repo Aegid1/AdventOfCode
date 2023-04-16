@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -12,17 +13,19 @@ public class Node<T> implements Iterable<Node<T>> {
     }
     
     private Node<T> parentNode;
-    private List<Node<T>> children;
-    private Map<String, Integer> files;
+    private List<Node<T>> children = new ArrayList<>();
+    private Map<String, Integer> files = new HashMap<>();
     private String name;
 
     public Node(Node<T> parent, String name){
         this.parentNode  = parent;
         this.children = new ArrayList<>();
+        this.name = name;
     }
     
-    public Node(){
+    public Node(String name){
         this.children = new ArrayList<>();
+        this.name = name;
     }
 
     public void addChild(Node<T> child){ children.add(child); }

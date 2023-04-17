@@ -44,7 +44,6 @@ public class Day7 {
                     currentNode = currentNode.getParent();
                     continue;
                 }
-
                 int lastSpace = line.lastIndexOf(" ");
                 String directory = line.substring(lastSpace +1, line.length());
 
@@ -90,8 +89,6 @@ public class Day7 {
         Map<String, Integer> directoriesWithFileSizes = new HashMap<>();
         outerQueue.add(directory);
 
-
-
         //eventuell mit while-schleife arbeiten -> infinite loop
         while(!outerQueue.isEmpty()){
 
@@ -102,29 +99,22 @@ public class Day7 {
 
             while(!queue.isEmpty()){
 
-                //System.out.println(node.getName());
-                //List<Node<String>> copyQueue = new ArrayList<>(queue);
                 Node<String> node = queue.remove();
 
                 for(Map.Entry<String, Integer> file : node.getFiles().entrySet()){
                     fileSizeSum += file.getValue();
                 }
-                fileSizeSum++;
 
                 if(node.getChildren().size() <= 0){ continue; }
         
                 for(Node<String> child : node.getChildren()){ queue.add(child); } 
-                //queue = copyQueue;
             }  
 
-            //List<Node<String>> copyOuterQueue = new ArrayList<>(outerQueue);
-            //copyOuterQueue.remove(0);
             directoriesWithFileSizes.put(outerNode.getName(), fileSizeSum);
         
             if(outerNode.getChildren().size() <= 0){ continue; }
         
             for(Node<String> child : outerNode.getChildren()){ outerQueue.add(child); } 
-            //outerQueue = copyOuterQueue;
 
             }
         
@@ -160,12 +150,8 @@ public class Day7 {
     }
 
     public static void main(String[] args){
-        
-        List<Node<String>> explored = List.of();
-        Map<String, Integer> files = new HashMap<>();
-        int fileSizeSum = 0;
-
-        List<String> input = Day1.readFileInList("/home/aegidiushaslauer/Dailies/AdventOfCode/Inputs/input_day7.txt");
+    
+        List<String> input = Day1.readFileInList("/home/aegidiushaslauer/Dailies/AdventOfCode/app/src/main/resources/Inputs/input_day7.txt");
 
         Node<String> tree = makeTree(input);
         Map<String, Integer> resultMap = fileSizeSumWithBFS(tree);
@@ -178,7 +164,6 @@ public class Day7 {
                 result += resultMap.get(element);
             }
         }
-        //System.out.println(resultMap.keySet().size());
         System.out.println(result);
     }
 

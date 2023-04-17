@@ -1,3 +1,5 @@
+package adventofcode.Day7; 
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;

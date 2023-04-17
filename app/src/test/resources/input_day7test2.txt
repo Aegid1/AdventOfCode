@@ -1,0 +1,13 @@
+$ cd /
+$ ls
+dir a
+dir b
+1 zwh
+1 zwb
+$ cd a
+1 wde
+1 dfg
+1 hij
+$ cd ..
+$ cd b
+1 adefg

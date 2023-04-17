@@ -1,4 +1,4 @@
-package app.src.main.java.adventofcode.Day1;
+package adventofcode.Day1;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

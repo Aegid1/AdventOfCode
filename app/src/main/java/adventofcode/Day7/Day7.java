@@ -82,14 +82,13 @@ public class Day7 {
 
 
 
-    public static Map<String, Integer> fileSizeSumWithBFS(Node<String> directory){
+    public static Map<Integer, Integer> fileSizeSumWithBFS(Node<String> directory){
 
         Queue<Node<String>> queue = new ArrayDeque<>();
         Queue<Node<String>> outerQueue = new ArrayDeque<>();
-        Map<String, Integer> directoriesWithFileSizes = new HashMap<>();
+        Map<Integer, Integer> directoriesWithFileSizes = new HashMap<>();
         outerQueue.add(directory);
 
-        //eventuell mit while-schleife arbeiten -> infinite loop
         while(!outerQueue.isEmpty()){
 
             Node<String> outerNode = outerQueue.remove();
@@ -108,9 +107,9 @@ public class Day7 {
                 if(node.getChildren().size() <= 0){ continue; }
         
                 for(Node<String> child : node.getChildren()){ queue.add(child); } 
-            }  
+            }
 
-            directoriesWithFileSizes.put(outerNode.getName(), fileSizeSum);
+            directoriesWithFileSizes.put(outerNode.hashCode(), fileSizeSum);
         
             if(outerNode.getChildren().size() <= 0){ continue; }
         
@@ -154,10 +153,10 @@ public class Day7 {
         List<String> input = Day1.readFileInList("/home/aegidiushaslauer/Dailies/AdventOfCode/app/src/main/resources/Inputs/input_day7.txt");
 
         Node<String> tree = makeTree(input);
-        Map<String, Integer> resultMap = fileSizeSumWithBFS(tree);
+        Map<Integer, Integer> resultMap = fileSizeSumWithBFS(tree);
         int result = 0;
 
-        for(String element : resultMap.keySet()){
+        for(Integer element : resultMap.keySet()){
 
             if(resultMap.get(element) <= 100000){ 
             

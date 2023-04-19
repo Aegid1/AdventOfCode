@@ -2,12 +2,12 @@ $ cd /
 $ ls
 dir a
 dir b
-1 zwh
-1 zwb
+123 zwh
+123 zwb
 $ cd a
-1 wde
-1 dfg
-1 hij
+123 wde
+123 dfg
+123 hij
 $ cd ..
-$ cd b
-1 adefg
+$ cd /
+123 adefg

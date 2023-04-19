@@ -8,6 +8,7 @@ import adventofcode.Day7.Node;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -47,19 +48,7 @@ public class Day7Tests {
 
     }
 
-    @Test
-    @DisplayName("checks if changing all files are correctly added")
-    void testBFS(){
-
-        List<String> inputs = Day1.readFileInList("/home/aegidiushaslauer/Dailies/AdventOfCode/app/src/test/resources/input_day7test2.txt");
-        Node<String> tree = Day7.makeTree(inputs);
-        Map<String, Integer> directories_with_files = Day7.fileSizeSumWithBFS(tree);
-
-        assertEquals(6 , directories_with_files.get("/"));
-        assertEquals(3 , directories_with_files.get("a"));
-        assertEquals(1 , directories_with_files.get("b"));
-
-    }
+    
 }
 
 

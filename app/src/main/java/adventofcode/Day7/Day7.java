@@ -1,6 +1,7 @@
 package adventofcode.Day7;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +16,14 @@ import adventofcode.Day1.Day1;
 
 public class Day7 {
 
+    /*
+     * Builds a "tree-structure" refering to the commands in the input.
+     * The tree-structure resembles a file-structure.
+     * 
+     * @param input -> list of inputs
+     * 
+     * @return the root-node/outermost directory consisting of the subnodes/subdirectories
+     */
     public static Node<String> makeTree (List<String> input){
 
         //List<Node<String>> directories = new ArrayList<>();
@@ -81,7 +90,13 @@ public class Day7 {
     }
 
 
-
+    /*
+     * Uses the BFS-Algorithm inside another, outer BFS-Algorithm to search for every file in every directory
+     * 
+     * @param directory -> is the outermost directory of the file-structure consisting of the subdirectories
+     * 
+     * @return a map consisting of hashvalues of the directories linked to the summed up filesize values
+     */
     public static Map<Integer, Integer> fileSizeSumWithBFS(Node<String> directory){
 
         Queue<Node<String>> queue = new ArrayDeque<>();
@@ -120,36 +135,46 @@ public class Day7 {
         return directoriesWithFileSizes;
     }
 
-    public static Node<String> searchDirectoryWithDFS(Node<String> node, List<Node<String>> explored, String directory){
+    /*
+     * Uses the DFS-Algorithm to search recursively for a specific directory through the file-structure by the name of the directory
+     * 
+     * @param outerMostDirectory -> is the file-structure that gets searched through
+     * @param exploredDirectories -> is the list consisting of all directories explored by the function
+     * @param wantedDirectory -> is the directory that is searched with the function
+     * 
+     * @return the node/directory that is searched for 
+     */
+    public static Node<String> searchDirectoryWithDFS(Node<String> outerMostDirectory, List<Node<String>> exploredDirectories, String wantedDirectory){
 
-        if(node.getName() != directory){
+        if(outerMostDirectory.getName() != wantedDirectory){
 
             //checks if the node is an end-node
-            if(node.getChildren().size() <= 0){
+            if(outerMostDirectory.getChildren().size() <= 0){
 
-                explored.add(node);
-                searchDirectoryWithDFS(node.getParent(), explored, directory);
+                exploredDirectories.add(outerMostDirectory);
+                searchDirectoryWithDFS(outerMostDirectory.getParent(), exploredDirectories, wantedDirectory);
 
             }
 
-            for(Node<String> child : node.getChildren()){
+            for(Node<String> child : outerMostDirectory.getChildren()){
 
-                if(!explored.contains(child)){ searchDirectoryWithDFS(child, explored, directory); }
+                if(!exploredDirectories.contains(child)){ searchDirectoryWithDFS(child, exploredDirectories, wantedDirectory); }
             
             }
 
             //if all children of the node are already in explored, it goes one level upwards
-            explored.add(node);
-            searchDirectoryWithDFS(node.getParent(), explored, directory);  
+            exploredDirectories.add(outerMostDirectory);
+            searchDirectoryWithDFS(outerMostDirectory.getParent(), exploredDirectories, wantedDirectory);  
             
         }
 
-        return node;
+        return outerMostDirectory;
 
     }
 
     public static void main(String[] args){
-    
+        
+    //PART ONE
         List<String> input = Day1.readFileInList("/home/aegidiushaslauer/Dailies/AdventOfCode/app/src/main/resources/Inputs/input_day7.txt");
 
         Node<String> tree = makeTree(input);
@@ -158,12 +183,27 @@ public class Day7 {
 
         for(Integer element : resultMap.keySet()){
 
-            if(resultMap.get(element) <= 100000){ 
-            
-                result += resultMap.get(element);
-            }
+            if(resultMap.get(element) <= 100000){ result += resultMap.get(element); }
         }
+
         System.out.println(result);
+        
+
+    //PART TWO
+        List<Integer> directoriesWithNeededSpace = new ArrayList<>();
+        int neededFreeSpace = 30000000;
+        int totalSpaceAvailable = 70000000;
+        int usedSpace = Collections.max(resultMap.entrySet(), Map.Entry.comparingByValue()).getValue();
+        int spaceToFree = neededFreeSpace - (totalSpaceAvailable - usedSpace);
+
+        for(Integer element : resultMap.keySet()){
+
+            if(resultMap.get(element) >= spaceToFree){ directoriesWithNeededSpace.add(resultMap.get(element)); }
+
+        }
+
+        int minimum = Collections.min(directoriesWithNeededSpace);
+        System.out.println(minimum);
     }
 
 }

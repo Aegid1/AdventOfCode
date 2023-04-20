@@ -36,7 +36,7 @@ public class Day7Tests {
     }
 
     @Test
-    @DisplayName("checks if changing all files are correctly added")
+    @DisplayName("checks if all files are correctly added")
     void testFileTreeGetFileSum(){
 
         List<String> inputs = Day1.readFileInList("/home/aegidiushaslauer/Dailies/AdventOfCode/app/src/test/resources/input_day7tests.txt");

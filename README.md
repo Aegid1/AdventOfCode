@@ -1,2 +1,2 @@
 # AdventOfCode
-Daily Challenges
+Programming Exercises of Advent of Code

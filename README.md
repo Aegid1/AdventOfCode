@@ -1,2 +1,2 @@
 # AdventOfCode
-Programming Exercises of Advent of Code
+programming exercises of Advent of Code
